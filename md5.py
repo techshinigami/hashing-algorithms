@@ -72,7 +72,25 @@ def md5(msg: str) -> str:
 	return process(msg).hex()
 
 
+def md5_file(file_path: str) -> str:
+    with open(file_path, 'rb') as f:
+        file_content = f.read()
+    return process(file_content).hex()
+
+
 
 if __name__ == '__main__':
-	message = input('Type or copy your message here: ')
-	print("MD5:", md5(message))
+    print("Choose an option:")
+    print("1. Hash a string")
+    print("2. Hash a file")
+    
+    choice = input("Enter your choice (1 or 2): ").strip()
+
+    if choice == '1':
+        message = input("Enter the message to hash: ")
+        print("SHA-256:", md5(message))
+    elif choice == '2':
+        file_path = input("Enter the file path to hash: ")
+        print("SHA-256:", md5_file(file_path))
+    else:
+        print("Invalid choice. Please enter 1 or 2.")

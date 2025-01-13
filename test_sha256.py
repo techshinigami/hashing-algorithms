@@ -1,6 +1,6 @@
 import unittest
 import hashlib
-from sha256 import sha256
+from sha256 import sha256, sha256_file
 
 class Testsha256(unittest.TestCase):
     
@@ -32,6 +32,14 @@ class Testsha256(unittest.TestCase):
         large_input = "a" * 1024 * 1024  # 1MB of 'a'
         expected_hash = hashlib.sha256(large_input.encode()).hexdigest()
         self.assertEqual(sha256(large_input), expected_hash)
+
+    def test_file_hash(self):
+        # Test for file hashing
+        file_path = 'sha256.py'
+        with open(file_path, 'rb') as f:
+            file_content = f.read()
+        expected_hash = hashlib.sha256(file_content).hexdigest()
+        self.assertEqual(sha256_file(file_path), expected_hash)
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,6 +1,6 @@
 import unittest
 import hashlib
-from md5 import md5
+from md5 import md5, md5_file
 
 class Testmd5(unittest.TestCase):
     
@@ -32,6 +32,14 @@ class Testmd5(unittest.TestCase):
         large_input = "a" * 1024 * 1024  # 1MB of 'a'
         expected_hash = hashlib.md5(large_input.encode()).hexdigest()
         self.assertEqual(md5(large_input), expected_hash)
+
+    def test_file_hash(self):
+        # Test for file hashing
+        file_path = 'md5.py'
+        with open(file_path, 'rb') as f:
+            file_content = f.read()
+        expected_hash = hashlib.md5(file_content).hexdigest()
+        self.assertEqual(md5_file(file_path), expected_hash)
 
 if __name__ == "__main__":
     unittest.main()
